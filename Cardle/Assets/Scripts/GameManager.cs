@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
                     win = true;
                 }
             }
-            else if (Indicators[currentLevelIndex - 1].GetComponent<Indicator>().correct)
+            else if (currentLevelIndex > 0 && Indicators[currentLevelIndex - 1].GetComponent<Indicator>().correct)
             {
                 gameOver = true;
                 win = true;
