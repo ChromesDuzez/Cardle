@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 1910523772}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: ImageDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -948,6 +948,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36463a82c8772d244b5c1e19d138c81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level1Images: []
+  Level2Images: []
+  Level3Images: []
+  Level4Images: []
+  Level5Images: []
+  FinalImages: []
 --- !u!1 &2030363783
 GameObject:
   m_ObjectHideFlags: 0

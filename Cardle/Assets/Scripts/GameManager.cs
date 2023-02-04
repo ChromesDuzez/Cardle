@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,18 @@ public class GameManager : MonoBehaviour
     public Sprite[] Level5Images; // icons array
     public Sprite[] FinalImages; // icons array
 
-    // Start is called before the first frame update
-    void Start()
+    public static Image ImageDisplay;
+    public int roundImage;
+    public string answer;
+
+    // Awake is called before the first frame update and everytime the script becomes active
+    void Awake()
     {
         LoadIcons();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ImageDisplay = GameObject.FindGameObjectWithTag("ImageDisplay").GetComponent<Image>();
+        roundImage = Random.Range(0, Level1Images.Length);
+        ImageDisplay.sprite = Level1Images[roundImage];
+        answer = Level1Images[roundImage].name;
     }
 
     //populate all of the icon arrays
