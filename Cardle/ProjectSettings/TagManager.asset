@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ImageDisplay
   - Submission
+  - Result
+  - List
   layers:
   - Default
   - TransparentFX
