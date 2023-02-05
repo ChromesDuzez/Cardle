@@ -11,6 +11,7 @@ TagManager:
   - Scrollbar
   - InputField
   - GameManager
+  - FinalImageDisplay
   layers:
   - Default
   - TransparentFX

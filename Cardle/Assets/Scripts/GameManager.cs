@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public bool gameOver;
-    public bool win;
+    public static bool gameOver;
+    public static bool win;
 
     //Image Arrays
     public Sprite[] Level1Images; // icons array
@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     //Status Indicator Variables
     public Image[] Indicators;
     public int currentLevelIndex;
-
-    //Input Field
+    public GameObject gameOverPanel;
+    public GameObject gamePanel;
 
     // Awake is called before the first frame update and everytime the script becomes active
     void Awake()
@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
                 gameOver = true;
                 win = true;
             }
+        }
+        else
+        {
+            gameOverPanel.SetActive(true);
+            gamePanel.SetActive(false);
         }
     }
 

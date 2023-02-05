@@ -127,7 +127,7 @@ public class BestMatchSearch : MonoBehaviour
         bool finishedTask = false;
         while (sortedSearchResults.Count != searchResults.Count && !finishedTask)
         {
-            int index = 0;
+            int index = -1;
             int minValue = -256;
 
             for(int i = 0; i < searchResults.Count; i++)
@@ -148,22 +148,14 @@ public class BestMatchSearch : MonoBehaviour
                 }
             }
 
-            
-            string toAddCandidate = CarList[index];
-            searchResults[index] = -1;
-            bool found = false;
-            foreach(string result in sortedSearchResults)
+            if(index == -1)
             {
-                if(result == toAddCandidate)
-                {
-                    found = true;
-                    finishedTask = true;
-                    break;
-                }
+                finishedTask = true;
             }
-            if(!found)
+            else
             {
-                sortedSearchResults.Add(toAddCandidate);
+                sortedSearchResults.Add(CarList[index]);
+                searchResults[index] = -1;
             }
         }
     }
