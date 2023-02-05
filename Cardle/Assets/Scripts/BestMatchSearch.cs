@@ -27,7 +27,10 @@ public class BestMatchSearch : MonoBehaviour
 
     public void startSearch()
     {
-        if(ignoreUpdate)
+        //wipe out any current results before instantiating new ones
+        destroyOldResults();
+
+        if (ignoreUpdate)
         {
             ignoreUpdate = false;
         }
@@ -71,13 +74,13 @@ public class BestMatchSearch : MonoBehaviour
 
     void displayResults()
     {
-        //wipe out any current results before instantiating new ones
-        destroyOldResults();
-
-        foreach(string result in sortedSearchResults)
+        if(sortedSearchResults.Count != 1)
         {
-            GameObject newResult = Instantiate(resultPrefab, ParentObject);
-            newResult.GetComponentInChildren<Text>().text = result;
+            foreach (string result in sortedSearchResults)
+            {
+                GameObject newResult = Instantiate(resultPrefab, ParentObject);
+                newResult.GetComponentInChildren<Text>().text = result;
+            }
         }
     }
 
@@ -91,9 +94,10 @@ public class BestMatchSearch : MonoBehaviour
 
     void sortSearchResults()
     {
-        while(sortedSearchResults.Count != searchResults.Count)
+        bool finishedTask = false;
+        while (sortedSearchResults.Count != searchResults.Count && !finishedTask)
         {
-            int index = -1;
+            int index = 0;
             int minValue = -256;
 
             for(int i = 0; i < searchResults.Count; i++)
@@ -114,13 +118,32 @@ public class BestMatchSearch : MonoBehaviour
                 }
             }
 
-            if(index >= 0)
+            
+            string toAddCandidate = CarList[index];
+            searchResults[index] = -1;
+            bool found = false;
+            foreach(string result in sortedSearchResults)
             {
-                sortedSearchResults.Add(CarList[index]);
-                searchResults[index] = -1;
+                if(result == toAddCandidate)
+                {
+                    found = true;
+                    finishedTask = true;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                sortedSearchResults.Add(toAddCandidate);
             }
         }
     }
+
+    /*
+     *
+            
+     *
+     * 
+    */
 
     void createListFromCSVFile()
     {

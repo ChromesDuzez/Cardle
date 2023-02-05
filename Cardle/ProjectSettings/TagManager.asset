@@ -8,6 +8,8 @@ TagManager:
   - Submission
   - Result
   - List
+  - Scrollbar
+  - InputField
   layers:
   - Default
   - TransparentFX
