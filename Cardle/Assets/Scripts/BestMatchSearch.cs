@@ -15,18 +15,48 @@ public class BestMatchSearch : MonoBehaviour
     public List<string> sortedSearchResults = new List<string>();
     public GameObject resultPrefab;
     public Transform ParentObject;
+    public GameManager gmScript;
+    public bool firstTimeSearch = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        gmScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         createListFromCSVFile();
         carlistvisual = CarList;
         searchInput = gameObject.GetComponent<InputField>().textComponent;
         ParentObject = GameObject.FindGameObjectWithTag("List").GetComponent<Transform>();
     }
 
+    void ensureListCompletness()
+    {
+        foreach (Sprite img in gmScript.FinalImages)
+        {
+            bool found = false;
+            foreach(string car in CarList)
+            {
+                if(img.name == car)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                Debug.Log("[BestMatchSearch.cs] - Added " + img.name + " to CarList.");
+                CarList.Add(img.name);
+            }
+        }
+    }
+
     public void startSearch()
     {
+        if(firstTimeSearch)
+        {
+            ensureListCompletness();
+            firstTimeSearch = false;
+        }
+
         //wipe out any current results before instantiating new ones
         destroyOldResults();
 
@@ -138,13 +168,6 @@ public class BestMatchSearch : MonoBehaviour
         }
     }
 
-    /*
-     *
-            
-     *
-     * 
-    */
-
     void createListFromCSVFile()
     {
         string temp = "";
@@ -166,6 +189,7 @@ public class BestMatchSearch : MonoBehaviour
         }
         if(temp != "")
         {
+            Debug.Log("[BestMatchSearch.cs] - Added " + temp + " to CarList.");
             CarList.Add(temp);
         }
     }
