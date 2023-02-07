@@ -60,18 +60,22 @@ public class GameManager : MonoBehaviour
                 {
                     win = true;
                 }
+                initiateGameOverScreen();
             }
             else if (currentLevelIndex > 0 && Indicators[currentLevelIndex - 1].GetComponent<Indicator>().correct)
             {
                 gameOver = true;
                 win = true;
+                initiateGameOverScreen();
             }
         }
-        else
-        {
-            gameOverPanel.SetActive(true);
-            gamePanel.SetActive(false);
-        }
+    }
+
+    void initiateGameOverScreen()
+    {
+        gameOverPanel.SetActive(true);
+        GameObject.FindGameObjectWithTag("GameOverManager").GetComponent<SyncIndicators>().updateIndicators();
+        gamePanel.SetActive(false);
     }
 
     //if the player skips the current image

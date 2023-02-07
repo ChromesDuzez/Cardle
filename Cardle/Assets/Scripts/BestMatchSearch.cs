@@ -104,7 +104,7 @@ public class BestMatchSearch : MonoBehaviour
 
     void displayResults()
     {
-        if(sortedSearchResults.Count != 1)
+        if(sortedSearchResults.Count != 0)
         {
             foreach (string result in sortedSearchResults)
             {

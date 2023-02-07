@@ -12,6 +12,7 @@ TagManager:
   - InputField
   - GameManager
   - FinalImageDisplay
+  - GameOverManager
   layers:
   - Default
   - TransparentFX
