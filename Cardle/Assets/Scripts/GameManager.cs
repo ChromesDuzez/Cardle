@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
         //Initialize Images
         LoadIcons();
         ImageDisplay = GameObject.FindGameObjectWithTag("ImageDisplay").GetComponent<Image>();
-        answerImageIndex = Random.Range(0, Level1Images.Length);
+        answerImageIndex = UnityEngine.Random.Range(0, Level1Images.Length);
         ImageDisplay.sprite = Level1Images[answerImageIndex];
         answer = Level1Images[answerImageIndex].name;
 
@@ -97,12 +98,33 @@ public class GameManager : MonoBehaviour
             {
                 Indicators[currentLevelIndex].GetComponent<Indicator>().correct = true;
             }
+            else if(partialCorrectness(GameObject.FindGameObjectWithTag("Submission").GetComponent<Text>().text, answer))
+            {
+                Indicators[currentLevelIndex].GetComponent<Indicator>().wrongWithCorrectManufacturer = true;
+            }
             else
             {
                 Indicators[currentLevelIndex].GetComponent<Indicator>().wrong = true;
             }
             nextLevel();
         }
+    }
+
+    bool partialCorrectness(string submission, string answer)
+    {
+        char[] separators = new char[] { ' ', '.' };
+        foreach (string word in submission.Split(separators, StringSplitOptions.RemoveEmptyEntries))
+        {
+            foreach(string part in answer.Split(separators, StringSplitOptions.RemoveEmptyEntries))
+            {
+                if(part == word)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void nextLevel()
